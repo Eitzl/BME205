@@ -1,0 +1,20 @@
+[workspace]
+authors = ["emfitzhu <emfitzhu@ucsc.edu>"]
+channels = ["conda-forge"]
+name = "breast_cancer_prs"
+platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+lab = "jupyter lab prs_model.ipynb"
+
+[dependencies]
+python = ">=3.11"
+numpy = ">=1.26"
+pandas = ">=2.0"
+scipy = ">=1.11"
+scikit-learn = ">=1.8"
+lightgbm = ">=4.0"
+matplotlib = ">=3.8"
+jupyterlab = ">=4.0"
+ipykernel = ">=6.0"

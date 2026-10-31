@@ -1,0 +1,9 @@
+# pixi environments
+.pixi
+# Kaggle data must not be redistributed
+data/
+# generated outputs
+submissions/
+runs_log.csv
+.ipynb_checkpoints/
+__pycache__/
