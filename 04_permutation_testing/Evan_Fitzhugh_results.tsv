@@ -1,0 +1,8 @@
+metric	value
+observed_overlap	1149261
+p_value	9.999000099990002e-05
+num_permutations	10000
+setA_regions	5000
+setB_regions	5000
+setA_total_bases	2297689
+setB_total_bases	2433598
