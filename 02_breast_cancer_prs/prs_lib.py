@@ -265,12 +265,25 @@ def fit_predict_logreg(m, Xtr, ytr, Xva_list, seed):
     scaler = StandardScaler().fit(Xtr) if m["scale"] else None
     tf = (lambda Z: scaler.transform(Z)) if scaler else (lambda Z: Z)
     clf = LogisticRegression(
-        C=m["C"], l1_ratio=m["l1_ratio"], solver=m["solver"],
-        max_iter=m["max_iter"], tol=m["tol"], class_weight=m["class_weight"],
-        random_state=seed,
+        C=m["C"], solver=m["solver"], max_iter=m["max_iter"], tol=m["tol"],
+        class_weight=m["class_weight"], random_state=seed,
+        **_penalty_kwargs(m["l1_ratio"]),
     ).fit(tf(Xtr), ytr)
     info = {"nonzero_coefs": int((clf.coef_ != 0).sum())}
     return [clf.predict_proba(tf(Z))[:, 1] for Z in Xva_list], info
+
+
+def _penalty_kwargs(l1_ratio):
+    """scikit-learn >= 1.8 picks the penalty from l1_ratio alone. Older versions
+    (e.g. on Colab) need `penalty` set too, or l1_ratio is silently ignored."""
+    import sklearn
+    if tuple(int(x) for x in sklearn.__version__.split(".")[:2]) >= (1, 8):
+        return {"l1_ratio": l1_ratio}
+    if l1_ratio == 0:
+        return {"penalty": "l2"}
+    if l1_ratio == 1:
+        return {"penalty": "l1"}
+    return {"penalty": "elasticnet", "l1_ratio": l1_ratio}
 
 
 def fit_predict_lgbm(m, Xtr, ytr, Xva_list, seed):
