@@ -1,0 +1,10 @@
+To make sure that my results are correct, I compared them with the results
+of scikit-learn, a standard Python library. For Part 1, I gave scikit-learn
+KMeans the same random start points (seeds 0-9) that my K-Means used, for
+k=10 and k=11. All 20 runs gave the same clustering ERROR and the same
+cluster labels (adjusted Rand index = 1.0). The ERROR changes from run to run
+only because the random start points change. For Part 2, scikit-learn
+AgglomerativeClustering (Ward linkage, 30 clusters) also gave k=30,
+ERROR=657, the same value as my SciPy script. This library calculates Ward
+linkage with different code than SciPy, thus the two results do not have a
+common source of error.
